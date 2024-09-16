@@ -33,26 +33,29 @@ export const getCategories = async() =>{
 export const getProducts = async () => {
   const query = gql`
     query MyQuery {
-      products {
-        addable
-        category {
-          name
-          id
-          icon {
-            url
+      productsConnection {
+        edges {
+          node {
+            addable
+            createdAt
+            description
+            category {
+              name
+              id
+              icon {
+                url
+              }
+            }
+            id
+            image {
+              url
+            }
+            itemQuantityType
+            mrp
+            name
+            sellingPrice
           }
         }
-        createdAt
-        description
-        id
-        image {
-          url
-        }
-        itemQuantityType
-        mrp
-        name
-        sellingPrice
-        slug
       }
     }
   `;

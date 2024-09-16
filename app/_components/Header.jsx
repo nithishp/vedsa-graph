@@ -114,7 +114,7 @@ const Header = () => {
     useEffect(() => {
       setTotalCartItem(cartItemList.length);
     }, [cartItemList]);
-
+   
 
   return (
     <div className="px-5 pt-6 pb-6 shadow-sm flex justify-between">

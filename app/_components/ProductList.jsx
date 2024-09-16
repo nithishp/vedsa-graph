@@ -7,7 +7,7 @@ const ProductList = ({productsList}) => {
     <div className='my-4'>
    <h2 className=' text-2xl font-semibold'>Our Products</h2>
         <div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 my-4'>
-            {productsList.productsConnection.edges.map((product) => (
+            {productsList.map((product) => (
                 <ProductItem product={product.node} />
             ))}
         </div>

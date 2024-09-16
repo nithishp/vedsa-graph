@@ -31,9 +31,41 @@ export const getCategories = async() =>{
     return result;
 }
 export const getProducts = async () => {
+  const query = gql`query MyQuery {
+  productsConnection {
+    edges {
+      node {
+        addable
+        createdAt
+        description
+        category {
+          name
+          id
+          icon {
+            url
+          }
+        }
+        id
+        image {
+          url
+        }
+        itemQuantityType
+        mrp
+        name
+        sellingPrice
+      }
+    }
+  }
+}
+  `;
+  const result = await request(graphqlAPI, query);
+  return result.productsConnection.edges;
+};
+
+export const getProductsByCategories = async (category) => {
   const query = gql`
     query MyQuery {
-      productsConnection {
+      productsConnection(where: { category: { name: "`+category+`" } }) {
         edges {
           node {
             addable
@@ -60,37 +92,7 @@ export const getProducts = async () => {
     }
   `;
   const result = await request(graphqlAPI, query);
-  return result;
-};
-
-export const getProductsByCategories = async (category) => {
-  const query = gql`
-    query MyQuery {
-      products(where: { category: { name: "`+category+`" } }) {
-        addable
-        category {
-          name
-          id
-          icon {
-            url
-          }
-        }
-        createdAt
-        description
-        id
-        image {
-          url
-        }
-        itemQuantityType
-        mrp
-        name
-        sellingPrice
-        slug
-      }
-    }
-  `;
-  const result = await request(graphqlAPI, query);
-  return result;
+  return result.productsConnection.edges;
 };
 
 export const addToCart = async (data) => {
